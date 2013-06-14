@@ -1,4 +1,4 @@
-package dom.categoria;
+package dom.utilidades;
 
  
 import java.util.List;
@@ -7,10 +7,10 @@ import org.apache.isis.applib.AbstractContainedObject;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
- import dom.categoria.Categoria;
+import dom.utilidades.Categoria;
 
 @Named("Categoria")
-public class CategoriaServicio extends AbstractContainedObject{
+public class UtilidadesServicio extends AbstractContainedObject{
 
 	
 	@MemberOrder(sequence = "2")

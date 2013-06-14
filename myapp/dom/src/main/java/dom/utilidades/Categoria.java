@@ -1,4 +1,4 @@
-package dom.categoria;
+package dom.utilidades;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -18,6 +18,14 @@ import javax.jdo.annotations.VersionStrategy;
 public class Categoria {
 	// public static enum aireAcondicionado
 
+
+	public String title()
+	{
+	final TitleBuffer buf = new TitleBuffer();
+	        buf.append(getCategorias());        
+	        return buf.toString();
+	}	
+	
 	private String categorias;
 
 	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
@@ -63,28 +71,15 @@ public class Categoria {
 	 //--------------------------------------------
 
 
+	// {{
+	@SuppressWarnings("unused")
+	private DomainObjectContainer container;
 
-
-	public String title()
-	{
-	final TitleBuffer buf = new TitleBuffer();
-	        buf.append(getCategorias());
-	       
-	            
-	        
-	        return buf.toString();
-	}
-
-	
-
-	    @SuppressWarnings("unused")
-	    private DomainObjectContainer container;
-
-	    public void setDomainObjectContainer(final DomainObjectContainer container)
-	    {
-	        this.container = container;
-	    }
-	    // }}
+	public void setDomainObjectContainer(final DomainObjectContainer container)
+	   {
+	     this.container = container;
+	   }
+	  // }}
 	    
 
 }
