@@ -1,6 +1,5 @@
 package dom.autos;
 
-
 import java.util.Date;
 import java.util.List;
 
@@ -15,28 +14,18 @@ import com.google.common.base.Objects;
 
 import dom.autos.Autos;
 import dom.autos.Autos.Estado;
-import dom.autos.Autos.Marca;
-
 import dom.autos.Autos.Seguro;
 import dom.autos.Autos.TipoCombustible;
+import dom.utilidades.Marcas;
  
 
-@Named("Autos")
+@Named("Flota")
 public class AutosServicio extends AbstractContainedObject{
-
-	 @MemberOrder(sequence = "2")
-	 public List<Autos> ListarAutos() {
-
-		 final List<Autos> autos= allInstances(Autos.class);
- 
-		 return autos;
-		 }
-	
 	 
-	@MemberOrder(sequence = "1")
+	@MemberOrder(sequence = "1") // Carga
 	public Autos CargarAuto(
 			@Named("Patente") String patente,
-			@Named("Marca") Marca marca, 
+			@Named("Marca") Marcas marca, 
 			@Named("Modelo") String modelo, 
 			@Named("Año") int ano,
 			@Named("Color") String color,
@@ -45,15 +34,15 @@ public class AutosServicio extends AbstractContainedObject{
 			@Named("Tipo de Combustible") TipoCombustible combustible,
 			@Named("Estado de Alquiler") Estado estado,
 			@Named("Fecha de Compra") Date fechaCompra,
-			@Named("Compañía de Seguro")Seguro seguro)
-	   { final String ownedBy = currentUserName();
-	     return elAuto(patente,marca,modelo,ano,color,kms,baul,combustible,estado,fechaCompra,seguro,ownedBy);
-	   }
+			@Named("Compañía de Seguro")Seguro seguro) { 
+		final String ownedBy = currentUserName();
+	    return elAuto(patente,marca,modelo,ano,color,kms,baul,combustible,estado,fechaCompra,seguro,ownedBy); 
+	    }
 		 
 	@Hidden // for use by fixtures
 	public Autos elAuto(
 		   String patente,
-		   Marca marca, 
+		   Marcas marca, 
 		   String modelo,
 		   int ano,
 		   String color,
@@ -78,45 +67,17 @@ public class AutosServicio extends AbstractContainedObject{
 		   auto.setSeguro(seguro);
 		   auto.setOwnedBy(userName);
  
-        // 
-        // GMAP3: uncomment to use https://github.com/danhaywood/isis-wicket-gmap3        
-        // toDoItem.setLocation(
-        //    New Location(51.5172+random(-0.05, +0.05), 0.1182 + random(-0.05, +0.05)));
-		//
-		        
        persist(auto);
        return auto;
     }
 	
-	
-	
-	
-	@MemberOrder(sequence = "3")
-	public Marcas CargarMarca(
-			@Named("Marca") String marcas)
-	   { 
-	     return laMarca(marcas);
-	   }
-	@Hidden // for use by fixtures
-	public Marcas laMarca(
-		   String marcas)  {
-		 final Marcas aux = newTransientInstance(Marcas.class);
-		   aux.setMarcas(marcas);
-		   persist(aux);
-		   return aux;
-	}
-	
-	
-	@MemberOrder(sequence = "4")
-	public List<Marcas> ListarMarcas() {
+	@MemberOrder(sequence = "2") // Listado
+	 public List<Autos> ListarAutos() {
+		 final List<Autos> autos= allInstances(Autos.class);
+		 return autos; }
+	// }}
 
-		 final List<Marcas> aux= allInstances(Marcas.class);
-		 
-		 return aux;
-		 }
-
-
-	// {{ helpers
+	// {{ Helpers
 	protected boolean ownedByCurrentUser(final Autos t) {
 	    return Objects.equal(t.getOwnedBy(), currentUserName());
 	}
@@ -124,8 +85,5 @@ public class AutosServicio extends AbstractContainedObject{
 	    return getContainer().getUser().getName();
 	}
 	// }}
-	
-
-
 
 }
