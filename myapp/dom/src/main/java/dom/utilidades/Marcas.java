@@ -3,7 +3,7 @@ package dom.utilidades;
 import java.util.ArrayList;
 import java.util.List;
 import javax.jdo.annotations.IdentityType;
-
+import javax.jdo.annotations.Persistent;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.AutoComplete;
@@ -23,7 +23,7 @@ import javax.jdo.annotations.VersionStrategy;
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY)
 @javax.jdo.annotations.Queries({
 @javax.jdo.annotations.Query(name="listado_marcas", language="JDQL",
-							value="SELECT FROM dom.autos.Marcas WHERE ownedBy == :ownedBy")})
+							value="SELECT FROM dom.utilidades.Marcas WHERE ownedBy == :ownedBy")})
 @javax.jdo.annotations.Version(strategy=VersionStrategy.VERSION_NUMBER, column="VERSION")
 @ObjectType("MARCAS")
 @Auditable
@@ -50,6 +50,7 @@ public class Marcas {
 	// }}	  
 	
 	//{{ Marca
+	@Persistent(mappedBy="marca")
 	private String marca;
 	@DescribedAs("La marca del vehiculo.")
 	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
@@ -67,6 +68,8 @@ public class Marcas {
 		return autos; }
 	public void setAutos(List<Autos> autos) { 
 		this.autos= autos; }
+	
+	/*
 	public void addToAutos(Autos a) {
 	        if(a == null || autos.contains(a)) return;
 	        a.setMarca(this);
@@ -74,7 +77,7 @@ public class Marcas {
 	public void removeFromAutos(Autos e) {
 	        if(e == null || !autos.contains(e)) return;
 	        e.setMarca(null);
-	        autos.remove(e); }
+	        autos.remove(e); } */
 	//}}	
 	
 	// {{ injected: DomainObjectContainer

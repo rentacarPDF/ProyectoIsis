@@ -3,6 +3,7 @@ package dom.autos;
 
 import java.util.Date;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.VersionStrategy;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.AutoComplete;
@@ -67,6 +68,7 @@ public class Autos {
 	//}}
 	
 	// {{ Marca	
+	@Persistent
 	private Marcas marca;
 	//private List<Marcas> marca=new ArrayList<Marcas>();
 	@DescribedAs("La marca del vehiculo.")
@@ -75,13 +77,15 @@ public class Autos {
 	public Marcas getMarca(){
 		return marca; }	
 	public void setMarca(final Marcas marca){		
-		this.marca=marca; }	
+		this.marca=marca; }
+	
+	/*
 	public void modificarMarca(Marcas a) {
 	        if(a==null || marca==a) return;
 	        if(marca != null) {
 	            marca.removeFromAutos(this); }
 	        a.addToAutos(this);
-	    }
+	    } */
 	// }}
 	
 	// {{ Modelo    
