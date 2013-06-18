@@ -3,7 +3,7 @@ package dom.autos;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.isis.applib.AbstractContainedObject;
+import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
@@ -20,7 +20,7 @@ import dom.utilidades.Marca;
  
 
 @Named("Flota")
-public class AutoServicio extends AbstractContainedObject{
+public class AutoServicio extends AbstractFactoryAndRepository {
 	 
 	@MemberOrder(sequence = "1") // Carga
 	public Auto CargarAuto(
@@ -37,7 +37,7 @@ public class AutoServicio extends AbstractContainedObject{
 			@Named("Compañía de Seguro")Seguro seguro) { 
 		final String ownedBy = currentUserName();
 	    return elAuto(patente,marca,modelo,ano,color,kms,baul,combustible,estado,fechaCompra,seguro,ownedBy); 
-	    }
+	}
 		 
 	@Hidden // for use by fixtures
 	public Auto elAuto(
@@ -72,9 +72,10 @@ public class AutoServicio extends AbstractContainedObject{
     }
 	
 	@MemberOrder(sequence = "2") // Listado
-	 public List<Auto> ListarAutos() {
+	public List<Auto> ListarAutos() {
 		 final List<Auto> autos= allInstances(Auto.class);
-		 return autos; }
+		 return autos; 
+	}
 	// }}
 
 	// {{ Helpers

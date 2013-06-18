@@ -7,13 +7,13 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.filter.Filter;
-import org.apache.isis.applib.AbstractContainedObject;
+import org.apache.isis.applib.AbstractFactoryAndRepository;
 
 import com.google.common.base.Objects;
 import dom.utilidades.Categoria;
 
 @Named("Utilidades")
-public class UtilidadesServicio extends AbstractContainedObject{
+public class UtilidadesServicio extends AbstractFactoryAndRepository {
 
 	//{{ Marcas
 	@MemberOrder(sequence = "1") // Carga

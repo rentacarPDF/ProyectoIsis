@@ -3,7 +3,6 @@ package dom.autos;
 
 import java.util.Date;
 import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.VersionStrategy;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.AutoComplete;
@@ -12,8 +11,11 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.ObjectType;
 import org.apache.isis.applib.annotation.RegEx;
+import org.apache.isis.applib.filter.Filter;
 import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.core.objectstore.jdo.applib.annotations.Auditable;
+
+import com.google.common.base.Objects;
 
 import dom.utilidades.Marca;
 import dom.utilidades.UtilidadesServicio;
@@ -31,28 +33,33 @@ import dom.utilidades.UtilidadesServicio;
 
 public class Auto {
 	
-	public static enum TipoCombustible{
-		NAFTA, DIESEL; }
-	public static enum Estado{
-		ALQUILADO, LIBRE, AVERIADO; }
+	public static enum TipoCombustible {
+		NAFTA, DIESEL; 
+	}
+	public static enum Estado {
+		ALQUILADO, LIBRE, AVERIADO; 
+	}
 	public static enum Seguro{
-		LA_SEGUNDA, MAPFRE, LA_PATRONAL, LA_CAJA, ZURICH; }
+		LA_SEGUNDA, MAPFRE, LA_PATRONAL, LA_CAJA, ZURICH; 
+	}
 	
 	// {{ Identification on the UI	
 	public String title() {
-	final TitleBuffer buf = new TitleBuffer();
+		final TitleBuffer buf = new TitleBuffer();
 		buf.append(getPatente());	       
-		return buf.toString();	}
+		return buf.toString();	
+	}
 	// }}
 	  
 	// {{ OwnedBy (property)
 	private String ownedBy;
 	@Hidden // not shown in the UI
 	public String getOwnedBy() {
-	    return ownedBy;	}
-
+	    return ownedBy;	
+	}
 	public void setOwnedBy(final String ownedBy) {
-	    this.ownedBy = ownedBy;	}	
+	    this.ownedBy = ownedBy;	
+	}	
 	// }}
 	
 	// {{ Patente	
@@ -61,31 +68,24 @@ public class Auto {
 	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
 	@MemberOrder(sequence="1")
 	public String getPatente(){
-		return patente; }
-	
+		return patente; 
+	}	
 	public void setPatente(String patente){
-		this.patente=patente; } 	
+		this.patente=patente; 
+	} 	
 	//}}
 	
 	// {{ Marca	
-	@Persistent
 	private Marca marca;
-	//private List<Marcas> marca=new ArrayList<Marcas>();
 	@DescribedAs("La marca del vehiculo.")
 	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
 	@MemberOrder(sequence="2")	
 	public Marca getMarca(){
-		return marca; }	
+		return marca;
+	}	
 	public void setMarca(final Marca marca){		
-		this.marca=marca; }
-	
-	/*
-	public void modificarMarca(Marcas a) {
-	        if(a==null || marca==a) return;
-	        if(marca != null) {
-	            marca.removeFromAutos(this); }
-	        a.addToAutos(this);
-	    } */
+		this.marca=marca;
+	}	
 	// }}
 	
 	// {{ Modelo    
@@ -97,9 +97,9 @@ public class Auto {
 	public String getModelo() {
 		return modelo;
 	}
-
     public void setModelo(final String modelo) {
-        this.modelo = modelo; }
+        this.modelo = modelo; 
+    }
     // }}
     
     // {{ Año    
@@ -109,10 +109,11 @@ public class Auto {
     // words, spaces and selected punctuation
     @MemberOrder(sequence = "4")
     public int getAno() {
-        return ano; }
-
+        return ano; 
+    }
     public void setAno(final int ano) {
-        this.ano = ano; }   
+        this.ano = ano; 
+    }   
     // }}
 
     // {{ Categoria 
@@ -124,10 +125,11 @@ public class Auto {
     // words, spaces and selected punctuation
     @MemberOrder(sequence = "5")
     public String getColor() {
-        return color; }
-
+        return color; 
+    }
     public void setColor(final String color) {
-        this.color = color; }    
+        this.color = color; 
+    }    
     // }}
     
     // {{ Kilometraje    
@@ -137,10 +139,11 @@ public class Auto {
     // words, spaces and selected punctuation
     @MemberOrder(sequence = "6")
     public int getKilometraje() {
-        return kms; }
-
+        return kms; 
+    }
     public void setKilometraje(final int kms) {
-        this.kms = kms; }    
+        this.kms = kms; 
+    }    
     // }}
     
     // {{ Capacidad del Baul    
@@ -150,10 +153,11 @@ public class Auto {
     // words, spaces and selected punctuation
     @MemberOrder(sequence = "7")
     public int getCapacidadBaul() {
-        return baul; }
-
+        return baul; 
+    }
     public void setCapacidadBaul(final int baul) {
-        this.baul = baul; }     
+        this.baul = baul; 
+    }     
     // }}
     
     // {{ Tipo de Combustible    
@@ -162,10 +166,11 @@ public class Auto {
  	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
  	@MemberOrder(sequence="8")
  	public TipoCombustible getTipoCombustible(){
- 		return combustible; }
- 	
+ 		return combustible; 
+ 	} 	
  	public void setTipoCombustible(TipoCombustible combustible){
- 		this.combustible=combustible; }  	
+ 		this.combustible=combustible; 
+ 	}  	
  	// }}
  	
  	// {{ Estado de alquiler del vehiculo
@@ -174,10 +179,11 @@ public class Auto {
   	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
   	@MemberOrder(sequence="9")
   	public Estado getEstado(){
-  		return estado; }
-  	
+  		return estado; 
+  	}  	
   	public void setEstado(Estado estado){
-  		this.estado=estado; }   	
+  		this.estado=estado; 
+  	}   	
   	// }}
   	
   	// {{ Fecha de Compra del vehiculo
@@ -185,13 +191,14 @@ public class Auto {
     @DescribedAs("Señala la fecha de compra del vehiculo.")
     @MemberOrder(sequence="10")
     public Date getFechaCompra() {
-        return fechaCompra; }
-
+        return fechaCompra; 
+    }
     public void setFechaCompra(final Date fechaCompra) {
-        this.fechaCompra= fechaCompra; }
-    
+        this.fechaCompra= fechaCompra; 
+    }    
     public void clearFechaCompra() {
-        setFechaCompra(null); }  
+        setFechaCompra(null); 
+    }  
     // }}
     
     // {{ Seguro del vehiculo
@@ -200,11 +207,23 @@ public class Auto {
    	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
    	@MemberOrder(sequence="11")
    	public Seguro getSeguro(){
-   		return seguro; }
-   	
+   		return seguro; 
+   	}   	
    	public void setSeguro(Seguro seguro){
-   		this.seguro=seguro; }	
+   		this.seguro=seguro; 
+   	}	
     // }}
+   	
+   	// {{ Filtro
+   	public static Filter<Auto> thoseOwnedBy(final String currentUser) {
+        return new Filter<Auto>() {
+            @Override
+            public boolean accept(final Auto auto) {
+                return Objects.equal(auto.getOwnedBy(), currentUser);
+            }
+        };
+    }
+   	// }}
         
     // {{ injected: DomainObjectContainer
     @SuppressWarnings("unused")

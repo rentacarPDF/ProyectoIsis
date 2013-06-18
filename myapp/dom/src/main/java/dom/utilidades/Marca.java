@@ -12,8 +12,11 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.ObjectType;
 import org.apache.isis.applib.annotation.RegEx;
+import org.apache.isis.applib.filter.Filter;
 import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.core.objectstore.jdo.applib.annotations.Auditable;
+
+import com.google.common.base.Objects;
 
 import dom.autos.Auto;
 
@@ -23,9 +26,9 @@ import javax.jdo.annotations.VersionStrategy;
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY)
 @javax.jdo.annotations.Queries({
 @javax.jdo.annotations.Query(name="listado_marcas", language="JDQL",
-							value="SELECT FROM dom.utilidades.Marcas WHERE ownedBy == :ownedBy")})
+							value="SELECT FROM dom.utilidades.Marca WHERE ownedBy == :ownedBy")})
 @javax.jdo.annotations.Version(strategy=VersionStrategy.VERSION_NUMBER, column="VERSION")
-@ObjectType("MARCAS")
+@ObjectType("MARCA")
 @Auditable
 @AutoComplete(repository=UtilidadesServicio.class, action="autoComplete")
 
@@ -35,7 +38,8 @@ public class Marca {
 	public String title() {
 		final TitleBuffer buf = new TitleBuffer();		
 		buf.append(getNombre());		       
-		return buf.toString(); }
+		return buf.toString(); 
+	}
 	// }}
 	
 	// {{ OwnedBy (property)
@@ -43,42 +47,46 @@ public class Marca {
 	@Hidden
 	// not shown in the UI
 	public String getOwnedBy() {
-	    return ownedBy;	}
-
+	    return ownedBy;	
+	}
 	public void setOwnedBy(final String ownedBy) {
-	    this.ownedBy = ownedBy; }	    
+	    this.ownedBy = ownedBy; 
+	}	    
 	// }}	  
 	
 	//{{ Marca
-	@Persistent(mappedBy="marca")
 	private String nombre;
 	@DescribedAs("La marca del vehiculo.")
 	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
 	@MemberOrder(sequence="1")
 	public String getNombre(){
-		return nombre; }
-	
+		return nombre;
+	}
 	public void setNombre(String nombre){
-		this.nombre=nombre; }	
+		this.nombre=nombre;
+	}
 	// }}
 	
 	//{{ Autos
+	@Persistent(mappedBy="marca")	
 	private List<Auto> autos = new ArrayList<Auto>();
 	public List<Auto> getAutos() { 
-		return autos; }
+		return autos; 
+	}
 	public void setAutos(List<Auto> autos) { 
-		this.autos= autos; }
+		this.autos=autos; 
+	}		
 	
-	/*
-	public void addToAutos(Autos a) {
-	        if(a == null || autos.contains(a)) return;
-	        a.setMarca(this);
-	        autos.add(a); }
-	public void removeFromAutos(Autos e) {
-	        if(e == null || !autos.contains(e)) return;
-	        e.setMarca(null);
-	        autos.remove(e); } */
-	//}}	
+	// {{ Filtro
+	public static Filter <Marca> thoseOwnedBy(final String currentUser) {
+        	return new Filter<Marca>() {
+            @Override
+            public boolean accept(final Marca marca) {
+                return Objects.equal(marca.getOwnedBy(), currentUser);
+            }
+        };
+    }
+	// }}
 	
 	// {{ injected: DomainObjectContainer
     @SuppressWarnings("unused")
