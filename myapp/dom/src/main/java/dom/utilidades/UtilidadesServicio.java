@@ -17,32 +17,32 @@ public class UtilidadesServicio extends AbstractContainedObject{
 
 	//{{ Marcas
 	@MemberOrder(sequence = "1") // Carga
-	public Marcas CargarMarca(@Named("Marca") String marcas) { 
+	public Marca CargarMarca(@Named("Marca") String marcas) { 
 		   	final String ownedBy = currentUserName();
 		   	return laMarca(marcas, ownedBy); }
 	
 	@Hidden // for use by fixtures
-	public Marcas laMarca(
+	public Marca laMarca(
 			String marcas,
 		   	String userName) {
-	final Marcas aux = newTransientInstance(Marcas.class);
-		   	aux.setMarcas(marcas);
+	final Marca aux = newTransientInstance(Marca.class);
+		   	aux.setNombre(marcas);
 		   	aux.setOwnedBy(userName);
 		   	persist(aux);
 		   	return aux;
 	}
 			
 	@MemberOrder(sequence = "2") // Listado
-	public List<Marcas> ListarMarcas()	{
-		   	final List<Marcas> aux= allInstances(Marcas.class);
+	public List<Marca> ListarMarcas()	{
+		   	final List<Marca> aux= allInstances(Marca.class);
 		   	return aux; }
 			
 	@Hidden    
-	public List<Marcas> autoComplete(final String marcas){
-			return allMatches(Marcas.class, new Filter<Marcas>(){
+	public List<Marca> autoComplete(final String marcas){
+			return allMatches(Marca.class, new Filter<Marca>(){
 			@Override
-			public boolean accept(final Marcas t) {		
-			return ownedByCurrentUser(t) && t.getMarcas().contains(marcas); }
+			public boolean accept(final Marca t) {		
+			return ownedByCurrentUser(t) && t.getNombre().contains(marcas); }
 			});
 				
 	}
@@ -77,7 +77,7 @@ public class UtilidadesServicio extends AbstractContainedObject{
 	// }}
 	
 	// {{ Helpers
-	protected boolean ownedByCurrentUser(final Marcas t){
+	protected boolean ownedByCurrentUser(final Marca t){
 		    return Objects.equal(t.getOwnedBy(), currentUserName()); }		
 
 	protected String currentUserName(){

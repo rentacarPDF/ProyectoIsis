@@ -15,7 +15,7 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.core.objectstore.jdo.applib.annotations.Auditable;
 
-import dom.utilidades.Marcas;
+import dom.utilidades.Marca;
 import dom.utilidades.UtilidadesServicio;
 
 
@@ -29,7 +29,7 @@ import dom.utilidades.UtilidadesServicio;
 @Auditable
 @AutoComplete(repository=UtilidadesServicio.class, action="autoComplete")
 
-public class Autos {
+public class Auto {
 	
 	public static enum TipoCombustible{
 		NAFTA, DIESEL; }
@@ -69,14 +69,14 @@ public class Autos {
 	
 	// {{ Marca	
 	@Persistent
-	private Marcas marca;
+	private Marca marca;
 	//private List<Marcas> marca=new ArrayList<Marcas>();
 	@DescribedAs("La marca del vehiculo.")
 	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
 	@MemberOrder(sequence="2")	
-	public Marcas getMarca(){
+	public Marca getMarca(){
 		return marca; }	
-	public void setMarca(final Marcas marca){		
+	public void setMarca(final Marca marca){		
 		this.marca=marca; }
 	
 	/*
@@ -94,8 +94,9 @@ public class Autos {
     @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
     // words, spaces and selected punctuation
     @MemberOrder(sequence = "3")
-    public String getModelo() {
-        return modelo; }
+	public String getModelo() {
+		return modelo;
+	}
 
     public void setModelo(final String modelo) {
         this.modelo = modelo; }

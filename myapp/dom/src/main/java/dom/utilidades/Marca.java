@@ -15,7 +15,7 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.core.objectstore.jdo.applib.annotations.Auditable;
 
-import dom.autos.Autos;
+import dom.autos.Auto;
 
 import javax.jdo.annotations.VersionStrategy;
 
@@ -29,12 +29,12 @@ import javax.jdo.annotations.VersionStrategy;
 @Auditable
 @AutoComplete(repository=UtilidadesServicio.class, action="autoComplete")
 
-public class Marcas {
+public class Marca {
 	
 	// {{ Identification on the UI	
 	public String title() {
 		final TitleBuffer buf = new TitleBuffer();		
-		buf.append(getMarcas());		       
+		buf.append(getNombre());		       
 		return buf.toString(); }
 	// }}
 	
@@ -51,22 +51,22 @@ public class Marcas {
 	
 	//{{ Marca
 	@Persistent(mappedBy="marca")
-	private String marca;
+	private String nombre;
 	@DescribedAs("La marca del vehiculo.")
 	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
 	@MemberOrder(sequence="1")
-	public String getMarcas(){
-		return marca; }
+	public String getNombre(){
+		return nombre; }
 	
-	public void setMarcas(String marca){
-		this.marca=marca; }	
+	public void setNombre(String nombre){
+		this.nombre=nombre; }	
 	// }}
 	
 	//{{ Autos
-	private List<Autos> autos = new ArrayList<Autos>();
-	public List<Autos> getAutos() { 
+	private List<Auto> autos = new ArrayList<Auto>();
+	public List<Auto> getAutos() { 
 		return autos; }
-	public void setAutos(List<Autos> autos) { 
+	public void setAutos(List<Auto> autos) { 
 		this.autos= autos; }
 	
 	/*

@@ -12,20 +12,20 @@ import org.apache.isis.applib.annotation.Named;
 import com.google.common.base.Objects;
 
 
-import dom.autos.Autos;
-import dom.autos.Autos.Estado;
-import dom.autos.Autos.Seguro;
-import dom.autos.Autos.TipoCombustible;
-import dom.utilidades.Marcas;
+import dom.autos.Auto;
+import dom.autos.Auto.Estado;
+import dom.autos.Auto.Seguro;
+import dom.autos.Auto.TipoCombustible;
+import dom.utilidades.Marca;
  
 
 @Named("Flota")
-public class AutosServicio extends AbstractContainedObject{
+public class AutoServicio extends AbstractContainedObject{
 	 
 	@MemberOrder(sequence = "1") // Carga
-	public Autos CargarAuto(
+	public Auto CargarAuto(
 			@Named("Patente") String patente,
-			@Named("Marca") Marcas marca, 
+			@Named("Marca") Marca marca, 
 			@Named("Modelo") String modelo, 
 			@Named("Año") int ano,
 			@Named("Color") String color,
@@ -40,9 +40,9 @@ public class AutosServicio extends AbstractContainedObject{
 	    }
 		 
 	@Hidden // for use by fixtures
-	public Autos elAuto(
+	public Auto elAuto(
 		   String patente,
-		   Marcas marca, 
+		   Marca marca, 
 		   String modelo,
 		   int ano,
 		   String color,
@@ -53,7 +53,7 @@ public class AutosServicio extends AbstractContainedObject{
 		   Date fechaCompra,
 		   Seguro seguro,
 		   String userName) {
-		 final Autos auto = newTransientInstance(Autos.class);
+		 final Auto auto = newTransientInstance(Auto.class);
 		   auto.setPatente(patente);
 		   auto.setMarca(marca);
 		   auto.setModelo(modelo);
@@ -72,13 +72,13 @@ public class AutosServicio extends AbstractContainedObject{
     }
 	
 	@MemberOrder(sequence = "2") // Listado
-	 public List<Autos> ListarAutos() {
-		 final List<Autos> autos= allInstances(Autos.class);
+	 public List<Auto> ListarAutos() {
+		 final List<Auto> autos= allInstances(Auto.class);
 		 return autos; }
 	// }}
 
 	// {{ Helpers
-	protected boolean ownedByCurrentUser(final Autos t) {
+	protected boolean ownedByCurrentUser(final Auto t) {
 	    return Objects.equal(t.getOwnedBy(), currentUserName());
 	}
 	protected String currentUserName() {
