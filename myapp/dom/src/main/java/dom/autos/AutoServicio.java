@@ -7,6 +7,8 @@ import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.NotInServiceMenu;
+import org.apache.isis.applib.filter.Filter;
 
 
 import com.google.common.base.Objects;
@@ -72,14 +74,16 @@ public class AutoServicio extends AbstractFactoryAndRepository {
     }
 	
 	@MemberOrder(sequence = "2") // Listado
-	public List<Auto> ListarAutos() {
+	public List<Auto> ListarAutos() 
+	{
 		 final List<Auto> autos= allInstances(Auto.class);
 		 return autos; 
 	}
-	// }}
-
-	// {{ Helpers
-	protected boolean ownedByCurrentUser(final Auto t) {
+	
+	 
+	
+	protected boolean ownedByCurrentUser(final Auto t) 
+	{
 	    return Objects.equal(t.getOwnedBy(), currentUserName());
 	}
 	protected String currentUserName() {
@@ -87,4 +91,5 @@ public class AutoServicio extends AbstractFactoryAndRepository {
 	}
 	// }}
 
+	
 }

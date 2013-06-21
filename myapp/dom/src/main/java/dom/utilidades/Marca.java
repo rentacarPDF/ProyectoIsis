@@ -1,17 +1,22 @@
 package dom.utilidades;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Persistent;
-
+import org.apache.isis.applib.Identifier.Type;
 import org.apache.isis.applib.DomainObjectContainer;
+
+
 import org.apache.isis.applib.annotation.AutoComplete;
 import org.apache.isis.applib.annotation.DescribedAs;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NotPersisted;
 import org.apache.isis.applib.annotation.ObjectType;
 import org.apache.isis.applib.annotation.RegEx;
+import org.apache.isis.applib.annotation.Resolve;
 import org.apache.isis.applib.filter.Filter;
 import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.core.objectstore.jdo.applib.annotations.Auditable;
@@ -19,6 +24,7 @@ import org.apache.isis.core.objectstore.jdo.applib.annotations.Auditable;
 import com.google.common.base.Objects;
 
 import dom.autos.Auto;
+import dom.autos.AutoServicio;
 
 import javax.jdo.annotations.VersionStrategy;
 
@@ -32,10 +38,13 @@ import javax.jdo.annotations.VersionStrategy;
 @Auditable
 @AutoComplete(repository=UtilidadesServicio.class, action="autoComplete")
 
-public class Marca {
+
+public class Marca
+{
 	
 	// {{ Identification on the UI	
-	public String title() {
+	public String title() 
+	{
 		final TitleBuffer buf = new TitleBuffer();		
 		buf.append(getNombre());		       
 		return buf.toString(); 
@@ -46,10 +55,13 @@ public class Marca {
 	private String ownedBy;	
 	@Hidden
 	// not shown in the UI
-	public String getOwnedBy() {
+	public String getOwnedBy() 
+	{
 	    return ownedBy;	
 	}
-	public void setOwnedBy(final String ownedBy) {
+	public void setOwnedBy(final String ownedBy) 
+	
+	{
 	    this.ownedBy = ownedBy; 
 	}	    
 	// }}	  
@@ -62,26 +74,41 @@ public class Marca {
 	public String getNombre(){
 		return nombre;
 	}
-	public void setNombre(String nombre){
+	public void setNombre(String nombre)
+	{
 		this.nombre=nombre;
 	}
-	// }}
 	
-	//{{ Autos
-	@Persistent(mappedBy="marca")	
-	private List<Auto> autos = new ArrayList<Auto>();
-	public List<Auto> getAutos() { 
-		return autos; 
-	}
-	public void setAutos(List<Auto> autos) { 
-		this.autos=autos; 
-	}		
 	
-	// {{ Filtro
-	public static Filter <Marca> thoseOwnedBy(final String currentUser) {
-        	return new Filter<Marca>() {
+    private UtilidadesServicio itemsAutos;
+	
+	@MemberOrder(sequence = "5")
+	 @NotPersisted
+	 
+	 
+	 public List<Auto> Autos() 
+	 {
+	  
+	     return itemsAutos.AutosCargados(this);
+	  
+	  }
+
+	public void setToDoItems(final UtilidadesServicio toDoItems) 
+    {
+        this.itemsAutos = toDoItems;
+    }
+	
+	
+	
+
+	
+	public static Filter <Marca> thoseOwnedBy(final String currentUser) 
+	{
+        	return new Filter<Marca>() 
+        			{
             @Override
-            public boolean accept(final Marca marca) {
+            public boolean accept(final Marca marca) 
+            {
                 return Objects.equal(marca.getOwnedBy(), currentUser);
             }
         };
@@ -92,8 +119,10 @@ public class Marca {
     @SuppressWarnings("unused")
     private DomainObjectContainer container;
 
-    public void setDomainObjectContainer(final DomainObjectContainer container) {
+    public void setDomainObjectContainer(final DomainObjectContainer container) 
+    {
         this.container = container;
     }
     // }}
+  	
 }

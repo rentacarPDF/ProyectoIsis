@@ -31,33 +31,37 @@ import dom.utilidades.UtilidadesServicio;
 @Auditable
 @AutoComplete(repository=UtilidadesServicio.class, action="autoComplete")
 
-public class Auto {
+public class Auto 
+{
 	
-	public static enum TipoCombustible {
+	public static enum TipoCombustible 
+	{
 		NAFTA, DIESEL; 
 	}
-	public static enum Estado {
+	public static enum Estado 
+	{
 		ALQUILADO, LIBRE, AVERIADO; 
 	}
-	public static enum Seguro{
+	public static enum Seguro
+	{
 		LA_SEGUNDA, MAPFRE, LA_PATRONAL, LA_CAJA, ZURICH; 
 	}
 	
-	// {{ Identification on the UI	
+		
 	public String title() {
 		final TitleBuffer buf = new TitleBuffer();
 		buf.append(getPatente());	       
 		return buf.toString();	
 	}
-	// }}
-	  
-	// {{ OwnedBy (property)
+	
 	private String ownedBy;
-	@Hidden // not shown in the UI
-	public String getOwnedBy() {
+	@Hidden 
+	public String getOwnedBy() 
+	{
 	    return ownedBy;	
 	}
-	public void setOwnedBy(final String ownedBy) {
+	public void setOwnedBy(final String ownedBy) 
+	{
 	    this.ownedBy = ownedBy;	
 	}	
 	// }}
@@ -67,37 +71,42 @@ public class Auto {
 	@DescribedAs("El dominio del vehiculo.")
 	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
 	@MemberOrder(sequence="1")
-	public String getPatente(){
+	public String getPatente()
+	{
 		return patente; 
 	}	
-	public void setPatente(String patente){
+	public void setPatente(String patente)
+	{
 		this.patente=patente; 
 	} 	
-	//}}
 	
-	// {{ Marca	
-	private Marca marca;
+	
+		
+	public Marca marca;
 	@DescribedAs("La marca del vehiculo.")
 	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
 	@MemberOrder(sequence="2")	
-	public Marca getMarca(){
+	public Marca getMarca()
+	{
 		return marca;
 	}	
-	public void setMarca(final Marca marca){		
+	public void setMarca(final Marca marca)
+	{		
 		this.marca=marca;
 	}	
-	// }}
 	
-	// {{ Modelo    
+	
 	private String modelo;
     @DescribedAs("El modelo del vehiculo.")
     @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
     // words, spaces and selected punctuation
     @MemberOrder(sequence = "3")
-	public String getModelo() {
+	public String getModelo() 
+    {
 		return modelo;
 	}
-    public void setModelo(final String modelo) {
+    public void setModelo(final String modelo) 
+    {
         this.modelo = modelo; 
     }
     // }}
@@ -111,28 +120,28 @@ public class Auto {
     public int getAno() {
         return ano; 
     }
-    public void setAno(final int ano) {
+    public void setAno(final int ano) 
+    {
         this.ano = ano; 
     }   
-    // }}
-
-    // {{ Categoria 
     
-    // {{ Color    
+    
+    
+    
     private String color;
     @DescribedAs("El color del vehiculo.")
     @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
-    // words, spaces and selected punctuation
+    
     @MemberOrder(sequence = "5")
     public String getColor() {
         return color; 
     }
-    public void setColor(final String color) {
+    public void setColor(final String color) 
+    {
         this.color = color; 
     }    
-    // }}
+        
     
-    // {{ Kilometraje    
     private int kms;
     @DescribedAs("El kilometraje del vehiculo.")
     @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
@@ -144,23 +153,22 @@ public class Auto {
     public void setKilometraje(final int kms) {
         this.kms = kms; 
     }    
-    // }}
     
-    // {{ Capacidad del Baul    
     private int baul;
     @DescribedAs("La capacidad del baul del vehiculo.")
     @RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
-    // words, spaces and selected punctuation
+    
+    
     @MemberOrder(sequence = "7")
-    public int getCapacidadBaul() {
+    public int getCapacidadBaul() 
+    {
         return baul; 
     }
-    public void setCapacidadBaul(final int baul) {
+    public void setCapacidadBaul(final int baul) 
+    {
         this.baul = baul; 
     }     
-    // }}
-    
-    // {{ Tipo de Combustible    
+      
  	private TipoCombustible combustible;
  	@DescribedAs("El tipo de combustible del vehiculo.")
  	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
@@ -171,9 +179,7 @@ public class Auto {
  	public void setTipoCombustible(TipoCombustible combustible){
  		this.combustible=combustible; 
  	}  	
- 	// }}
- 	
- 	// {{ Estado de alquiler del vehiculo
+ 
   	private Estado estado;
   	@DescribedAs("Señala el estado actual del vehiculo.")
   	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
@@ -181,7 +187,8 @@ public class Auto {
   	public Estado getEstado(){
   		return estado; 
   	}  	
-  	public void setEstado(Estado estado){
+  	public void setEstado(Estado estado)
+  	{
   		this.estado=estado; 
   	}   	
   	// }}
@@ -193,10 +200,12 @@ public class Auto {
     public Date getFechaCompra() {
         return fechaCompra; 
     }
-    public void setFechaCompra(final Date fechaCompra) {
+    public void setFechaCompra(final Date fechaCompra) 
+    {
         this.fechaCompra= fechaCompra; 
     }    
-    public void clearFechaCompra() {
+    public void clearFechaCompra() 
+    {
         setFechaCompra(null); 
     }  
     // }}
@@ -206,17 +215,23 @@ public class Auto {
    	@DescribedAs("Señala el seguro del vehiculo.")
    	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
    	@MemberOrder(sequence="11")
-   	public Seguro getSeguro(){
+   	
+   	public Seguro getSeguro()
+   	{
    		return seguro; 
    	}   	
-   	public void setSeguro(Seguro seguro){
+   	
+   	public void setSeguro(Seguro seguro)
+   	{
    		this.seguro=seguro; 
    	}	
     // }}
    	
    	// {{ Filtro
-   	public static Filter<Auto> thoseOwnedBy(final String currentUser) {
-        return new Filter<Auto>() {
+   	public static Filter<Auto> thoseOwnedBy(final String currentUser) 
+   	{
+        return new Filter<Auto>() 
+        		{
             @Override
             public boolean accept(final Auto auto) {
                 return Objects.equal(auto.getOwnedBy(), currentUser);
