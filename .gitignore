@@ -34,7 +34,8 @@ local.properties
 .externalToolBuilders/
 *.launch
 .buildpath
-target/
+*/target/*
+*/target/**
 target-ide/
 
 # phpstorm
