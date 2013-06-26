@@ -2,16 +2,15 @@ package dom.utilidades;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Persistent;
 import org.apache.isis.applib.DomainObjectContainer;
-
-
 import org.apache.isis.applib.annotation.AutoComplete;
 import org.apache.isis.applib.annotation.DescribedAs;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.NotPersisted;
 import org.apache.isis.applib.annotation.ObjectType;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.filter.Filter;
@@ -70,6 +69,25 @@ public class Marca {
 	}
 	// }}
 	
+	//{{ Lista de Autos
+	@Persistent(mappedBy="marca")	
+	private List<Auto> listaAuto = new ArrayList<Auto>();
+	public List<Auto> getListaAuto() { 
+		return listaAuto; 
+	}
+	public void setListaAuto(List<Auto> auto) { 
+		this.listaAuto= auto; }	
+	@Hidden
+	public void agregarListaAutos(Auto auto){
+		if(auto == null || listaAuto.contains(auto)) {
+		return;
+		}
+		auto.setMarca(this);
+		listaAuto.add(auto);
+	}	
+	// }}
+	
+	/*
 	// {{ Listado de Autos Filtrado por marca
     private UtilidadesServicio itemsAutos;	
 	@Hidden
@@ -80,7 +98,7 @@ public class Marca {
 	public void setAutos(final UtilidadesServicio lista) {
         this.itemsAutos = lista;
     }
-	// }}
+	// }} */
 	
 	// {{ Filtro
 	public static Filter <Marca> thoseOwnedBy(final String currentUser){

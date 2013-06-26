@@ -6,14 +6,13 @@ import java.util.List;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.NotInServiceMenu;
+
 
 import org.apache.isis.applib.filter.Filter;
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 
 import com.google.common.base.Objects;
 
-import dom.autos.Auto;
 import dom.utilidades.Categoria;
 
 @Named("Utilidades")
@@ -61,7 +60,8 @@ public class UtilidadesServicio extends AbstractFactoryAndRepository {
 	}
 	// }}
 	
-	// {{ Listado de Autos filtrado por Marcas
+	/*
+	// {{ Listado de Autos filtrado por Marcas 
 	@NotInServiceMenu
 	public List<Auto> AutosPorMarca(final Marca lista) {
 		return allMatches(Auto.class, new Filter<Auto>() {
@@ -71,7 +71,7 @@ public class UtilidadesServicio extends AbstractFactoryAndRepository {
 		}
 	  });
 	}
-	// }}
+	// }} */
 		
 	// {{ Categoria
 	@MemberOrder(sequence = "3") // Listado de Categoria

@@ -3,6 +3,7 @@ package dom.autos;
 
 import java.util.Date;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.VersionStrategy;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.AutoComplete;
@@ -14,6 +15,7 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.filter.Filter;
 import org.apache.isis.applib.util.TitleBuffer;
 import org.apache.isis.core.objectstore.jdo.applib.annotations.Auditable;
+import org.apache.isis.applib.annotation.Named;
 
 import com.google.common.base.Objects;
 
@@ -43,6 +45,7 @@ public class Auto {
 		LA_SEGUNDA, MAPFRE, LA_PATRONAL, LA_CAJA, ZURICH; 
 	}	
 	
+	@Named("Dominio")
 	// {{ Identification on the UI	
 	public String title() {
 		final TitleBuffer buf = new TitleBuffer();
@@ -76,6 +79,7 @@ public class Auto {
 	// }}
 	
 	// {{ Marca
+	@Persistent
 	private Marca marca;
 	@DescribedAs("La marca del vehiculo.")
 	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")

@@ -70,7 +70,9 @@ public class AutoServicio extends AbstractFactoryAndRepository {
 		auto.setSeguro(seguro);
 		auto.setOwnedBy(userName);
  
-		persist(auto);
+		marca.agregarListaAutos(auto);
+		
+		persistIfNotAlready(auto);
 		return auto;
     }
 	// }}
