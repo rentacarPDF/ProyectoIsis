@@ -102,6 +102,21 @@ public class AutoServicio extends AbstractFactoryAndRepository {
     }
     // }}	
 	
+    // }}
+    @MemberOrder(sequence = "3") // Busqueda de Autos
+    public List<Auto> busquedaAutos(@Named("Patente")final String description)
+    {
+    	
+        return allMatches(Auto.class, new Filter<Auto>() {
+            @Override
+            public boolean accept(final Auto t) {
+                return  t.getPatente().contains(description);  
+            }
+
+        });
+    }
+    // }}
+    
 	// {{ Helpers
 	protected boolean ownedByCurrentUser(final Auto t) {
 	    return Objects.equal(t.getOwnedBy(), currentUserName());
