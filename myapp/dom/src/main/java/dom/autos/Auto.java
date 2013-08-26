@@ -211,6 +211,27 @@ public class Auto {
    	}	
     // }}
    	
+    // {{ Campo Activo
+   	private boolean activo;
+   	@Hidden
+   	@DescribedAs("Activo")
+   	@MemberOrder(sequence="12")
+   	public boolean getActivo() {
+   		return activo; 
+   	}   	
+   	public void setActivo(boolean activo){
+   		this.activo=activo; 
+   	}	
+    // }}
+   	   	
+   	//{{ Remove   	
+   	public void remove(){
+   		setActivo(false);
+   	}   	
+   	//}}
+   	
+   	
+   	
    	// {{ Filtro
    	public static Filter<Auto> thoseOwnedBy(final String currentUser){
         return new Filter<Auto>() {

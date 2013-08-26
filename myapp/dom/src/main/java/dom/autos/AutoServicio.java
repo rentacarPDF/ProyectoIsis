@@ -4,9 +4,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
+import org.apache.isis.applib.annotation.ActionSemantics;
+import org.apache.isis.applib.annotation.ActionSemantics.Of;
+
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.filter.Filter;
 
 
 import com.google.common.base.Objects;
@@ -77,13 +81,26 @@ public class AutoServicio extends AbstractFactoryAndRepository {
     }
 	// }}
 	
-	// {{ 
+	// {{ complete (action)
+    @ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2") // Listado de Autos
-	public List<Auto> ListarAutos() {
-		final List<Auto> autos= allInstances(Auto.class);
-		return autos; 
-	}
-	// }}
+    public List<Auto> AutosActivos() {
+        List<Auto> items = doComplete();
+        if(items.isEmpty()) {
+            getContainer().informUser("No hay autos activos :-(");
+        }
+        return items;
+    }
+
+    protected List<Auto> doComplete() {
+        return allMatches(Auto.class, new Filter<Auto>() {
+            @Override
+            public boolean accept(final Auto t) {
+                return ownedByCurrentUser(t) && t.getActivo();
+            }
+        });
+    }
+    // }}	
 	
 	// {{ Helpers
 	protected boolean ownedByCurrentUser(final Auto t) {
