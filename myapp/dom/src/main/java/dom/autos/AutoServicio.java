@@ -20,7 +20,7 @@ import dom.autos.Auto;
 import dom.autos.Auto.Estado;
 import dom.autos.Auto.Seguro;
 import dom.autos.Auto.TipoCombustible;
-import dom.utilidades.Marca;
+import dom.marca.Marca;
  
 
 @Named("Flota")
@@ -74,7 +74,7 @@ public class AutoServicio extends AbstractFactoryAndRepository {
 		auto.setSeguro(seguro);
 		auto.setOwnedBy(userName);
  
-		marca.agregarListaAutos(auto);
+		//marca.agregarListaAutos(auto);
 		
 		persistIfNotAlready(auto);
 		return auto;
@@ -104,15 +104,12 @@ public class AutoServicio extends AbstractFactoryAndRepository {
 	
     // }}
     @MemberOrder(sequence = "3") // Busqueda de Autos
-    public List<Auto> busquedaAutos(@Named("Patente")final String description)
-    {
-    	
+    public List<Auto> busquedaAutos(@Named("Patente")final String description) {    	
         return allMatches(Auto.class, new Filter<Auto>() {
             @Override
             public boolean accept(final Auto t) {
                 return  t.getPatente().contains(description);  
             }
-
         });
     }
     // }}

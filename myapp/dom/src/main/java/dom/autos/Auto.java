@@ -19,8 +19,8 @@ import org.apache.isis.applib.annotation.Named;
 
 import com.google.common.base.Objects;
 
-import dom.utilidades.Marca;
-import dom.utilidades.UtilidadesServicio;
+import dom.marca.Marca;
+import dom.marca.MarcaServicio;
 
 
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
@@ -31,7 +31,7 @@ import dom.utilidades.UtilidadesServicio;
 
 @ObjectType("AUTO")
 @Auditable
-@AutoComplete(repository=UtilidadesServicio.class, action="autoComplete")
+@AutoComplete(repository=MarcaServicio.class, action="autoComplete")
 
 public class Auto {
 	

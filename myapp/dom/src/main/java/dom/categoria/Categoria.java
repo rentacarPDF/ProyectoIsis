@@ -1,4 +1,4 @@
-package dom.utilidades;
+package dom.categoria;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -16,11 +16,8 @@ import javax.jdo.annotations.VersionStrategy;
 @javax.jdo.annotations.Version(strategy=VersionStrategy.VERSION_NUMBER, column="VERSION")
 
 public class Categoria {
-	// public static enum aireAcondicionado
-
-
-	public String title()
-	{
+	
+	public String title(){
 	final TitleBuffer buf = new TitleBuffer();
 	        buf.append(getCategorias());        
 	        return buf.toString();
@@ -30,13 +27,10 @@ public class Categoria {
 
 	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
 	@MemberOrder(sequence="1")
-	public String getCategorias()
-	{
+	public String getCategorias(){
 		return categorias;
 	}
-
-	public void setCategorias(String categorias)
-	{
+	public void setCategorias(String categorias){
 		this.categorias=categorias;
 	}
 
@@ -44,42 +38,35 @@ public class Categoria {
 
 	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
 	@MemberOrder(sequence="2")
-	public int getCantPuertas()
-	{
-	return cantPuertas;
+	public int getCantPuertas()	{
+		return cantPuertas;
 	}
-
-	public void setCantPuertas(int cantPuertas)
-	{
-	this.cantPuertas=cantPuertas;
+	public void setCantPuertas(int cantPuertas)	{
+		this.cantPuertas=cantPuertas;
 	}
 	     
-	//-----------------------------------------
+	// {{
 	private int cantPlazas ;
 
 	@RegEx(validation = "\\w[@&:\\-\\,\\.\\+ \\w]*")
 	@MemberOrder(sequence="3")
-	public int getCantPlazas()
-	{
-	return cantPlazas;
+	public int getCantPlazas(){
+		return cantPlazas;
 	}
-
-	public void setCantPlazas(int cantPlazas)
-	{
-	this.cantPlazas=cantPlazas;
+	public void setCantPlazas(int cantPlazas){
+		this.cantPlazas=cantPlazas;
 	}
-	 //--------------------------------------------
+	// }}
 
 
 	// {{
 	@SuppressWarnings("unused")
 	private DomainObjectContainer container;
 
-	public void setDomainObjectContainer(final DomainObjectContainer container)
-	   {
+	public void setDomainObjectContainer(final DomainObjectContainer container)	   {
 	     this.container = container;
-	   }
-	  // }}
+	}
+	// }}
 	    
 
 }

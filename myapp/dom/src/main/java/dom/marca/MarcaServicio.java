@@ -1,4 +1,4 @@
-package dom.utilidades;
+package dom.marca;
 
  
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.NotInServiceMenu;
 
 
 import org.apache.isis.applib.filter.Filter;
@@ -13,10 +14,12 @@ import org.apache.isis.applib.AbstractFactoryAndRepository;
 
 import com.google.common.base.Objects;
 
-import dom.utilidades.Categoria;
+import dom.autos.Auto;
+
+
 
 @Named("Utilidades")
-public class UtilidadesServicio extends AbstractFactoryAndRepository {
+public class MarcaServicio extends AbstractFactoryAndRepository {
 
 	//{{ Marcas
 	@MemberOrder(sequence = "1") // Carga de Marca	
@@ -46,6 +49,19 @@ public class UtilidadesServicio extends AbstractFactoryAndRepository {
 		final List<Marca> aux= allInstances(Marca.class);
 		return aux; 
     }
+	// }}	
+	
+	// {{ 
+	// Listado de Autos filtrado por Marcas
+	@NotInServiceMenu
+	public List<Auto> AutosPorMarca(final Marca lista) {
+		return allMatches(Auto.class, new Filter<Auto>() {
+		@Override
+		public boolean accept(Auto t){
+		return  lista.equals(t.getMarca())&& t.getActivo();
+		}
+	  });
+	}
 	// }}
 	
 	// {{ 
@@ -59,27 +75,6 @@ public class UtilidadesServicio extends AbstractFactoryAndRepository {
 	  });				
 	}
 	// }}
-	
-	/*
-	// {{ Listado de Autos filtrado por Marcas 
-	@NotInServiceMenu
-	public List<Auto> AutosPorMarca(final Marca lista) {
-		return allMatches(Auto.class, new Filter<Auto>() {
-		@Override
-		public boolean accept(Auto t){
-		return  lista.equals(t.getMarca());
-		}
-	  });
-	}
-	// }} */
-		
-	// {{ Categoria
-	@MemberOrder(sequence = "3") // Listado de Categoria
-	public List<Categoria> ListarCategorias(){ 
-		final List<Categoria> categoria= allInstances(Categoria.class);
-		return categoria;
-	}
-	// }}s
 	
 	// {{ Helpers
 	protected boolean ownedByCurrentUser(final Marca t)	{
