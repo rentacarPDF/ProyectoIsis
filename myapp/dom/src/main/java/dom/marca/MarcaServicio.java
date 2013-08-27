@@ -24,8 +24,9 @@ public class MarcaServicio extends AbstractFactoryAndRepository {
 	//{{ Marcas
 	@MemberOrder(sequence = "1") // Carga de Marca	
 	public Marca CargarMarca(@Named("Marca") String marca) { 
+		final boolean activo=true;
 		final String ownedBy = currentUserName();
-		return laMarca(marca, ownedBy); 
+		return laMarca(marca, activo, ownedBy); 
 	}
 	// }}
 	
@@ -33,26 +34,29 @@ public class MarcaServicio extends AbstractFactoryAndRepository {
 	@Hidden // for use by fixtures
 	public Marca laMarca(
 		String marca,
+		boolean activo,
 		String userName) {
 	final Marca aux = newTransientInstance(Marca.class);
 		aux.setNombre(marca);
+		aux.setActivo(activo);
 		aux.setOwnedBy(userName);
 		
 		persist(aux);
 		return aux;
 	}
+	// }}	
+	@MemberOrder(sequence = "2") // Listado de Marca 
+	public List<Marca> ListaMarcas() {
+	     return allMatches(Marca.class, new Filter<Marca>() {
+	     @Override
+	     public boolean accept(final Marca t) {
+	     return t.getActivo();
+	     }
+	   });
+	}
 	// }}
 	
-	// {{		
-	@MemberOrder(sequence = "2") // Listado de Marca 
-	public List<Marca> ListarMarcas() {
-		final List<Marca> aux= allInstances(Marca.class);
-		return aux; 
-    }
-	// }}	
-	
-	// {{ 
-	// Listado de Autos filtrado por Marcas
+	// {{ Listado de Autos filtrado por Marcas
 	@NotInServiceMenu
 	public List<Auto> AutosPorMarca(final Marca lista) {
 		return allMatches(Auto.class, new Filter<Auto>() {

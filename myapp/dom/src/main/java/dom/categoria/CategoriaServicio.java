@@ -6,7 +6,7 @@ import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
-@Named("Marca")
+@Named("Categoria")
 public class CategoriaServicio extends AbstractFactoryAndRepository{
 	
 	// {{

@@ -99,7 +99,7 @@ public class AutoServicio extends AbstractFactoryAndRepository {
         return allMatches(Auto.class, new Filter<Auto>() {
             @Override
             public boolean accept(final Auto t) {
-                return ownedByCurrentUser(t) && t.getActivo();
+                return t.getActivo() && t.getMarca().getActivo();
             }
         });
     }

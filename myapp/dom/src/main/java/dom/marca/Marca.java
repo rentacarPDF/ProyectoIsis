@@ -65,6 +65,21 @@ public class Marca {
 	}
 	// }}
 	
+	// {{ Campo Activo
+   	private boolean activo;
+   	@Hidden
+   	@DescribedAs("Activo")   	
+   	public boolean getActivo() {
+   		return activo; 
+   	}   	
+   	public void setActivo(boolean activo){
+   		this.activo=activo; 
+   	}   	
+   	public void remove(){
+   		setActivo(false);   		
+   	}   	
+   	//}}
+		
 	/*
 	//{{ Lista de Autos
 	@Persistent(mappedBy="marca")	

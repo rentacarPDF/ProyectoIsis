@@ -12,11 +12,10 @@ import org.apache.isis.applib.filter.Filter;
 
 import com.google.common.base.Objects;
 
-import dom.autos.Auto;
-import dom.marca.Marca;
 
 @Named("Localidad")
 public class LocalidadServicio extends AbstractFactoryAndRepository {
+	
 	@MemberOrder(sequence = "1") // Carga de localidad	
 	public Localidad CargaDeLocalidad(@Named("Localidad") String localidad) { 
 		final boolean activo=true;
@@ -36,30 +35,32 @@ public class LocalidadServicio extends AbstractFactoryAndRepository {
 	   persist(aux);
 		return aux;
 	}
-	
-	protected String currentUserName(){
-		return getContainer().getUser().getName(); 
-	}
-	 @ActionSemantics(Of.SAFE)
-		@MemberOrder(sequence = "2") // Listado de Localidades
-	    public List<Localidad> ListaDeLocalidades() {
+		
+	@ActionSemantics(Of.SAFE)
+	@MemberOrder(sequence = "2") // Listado de Localidades
+	public List<Localidad> ListaDeLocalidades() {
 	        List<Localidad> items = doComplete();
 	        if(items.isEmpty()) {
 	            getContainer().informUser("No hay Ciudades activos :-(");
 	        }
 	        return items;
-	    }
+	}
 
-	 protected List<Localidad> doComplete() {
+	protected List<Localidad> doComplete() {
 	        return allMatches(Localidad.class, new Filter<Localidad>() {
 	            @Override
 	            public boolean accept(final Localidad t) {
 	                return  t.getActivo();
 	            }
 	        });
-	    }
-	 protected boolean ownedByCurrentUser(final Localidad t) {
-		    return Objects.equal(t.getOwnedBy(), currentUserName());
-		}
+	}
+	
+	// {{ Helpers
+	protected String currentUserName(){
+		return getContainer().getUser().getName(); 
+	}
+	protected boolean ownedByCurrentUser(final Localidad t) {
+	    return Objects.equal(t.getOwnedBy(), currentUserName());
+	}
 		
 }
