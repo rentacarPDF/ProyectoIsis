@@ -40,8 +40,9 @@ public class AutoServicio extends AbstractFactoryAndRepository {
 		@Named("Estado de Alquiler") Estado estado,
 		@Named("Fecha de Compra") Date fechaCompra,
 		@Named("Compañía de Seguro")Seguro seguro) { 
+		final boolean activo=true;
 		final String ownedBy = currentUserName();
-	    return elAuto(patente,marca,modelo,ano,color,kms,baul,combustible,estado,fechaCompra,seguro,ownedBy); 
+	    return elAuto(patente,marca,modelo,ano,color,kms,baul,combustible,estado,fechaCompra,seguro,activo, ownedBy); 
 	}
 	// }}
 	
@@ -59,6 +60,7 @@ public class AutoServicio extends AbstractFactoryAndRepository {
 		Estado estado,
 		Date fechaCompra,
 		Seguro seguro,
+		boolean activo,
 		String userName) {
 	final Auto auto = newTransientInstance(Auto.class);
 		auto.setPatente(patente);
@@ -72,6 +74,7 @@ public class AutoServicio extends AbstractFactoryAndRepository {
 		auto.setEstado(estado);
 		auto.setFechaCompra(fechaCompra);
 		auto.setSeguro(seguro);
+		auto.setActivo(activo);
 		auto.setOwnedBy(userName);
  
 		//marca.agregarListaAutos(auto);
@@ -108,7 +111,7 @@ public class AutoServicio extends AbstractFactoryAndRepository {
         return allMatches(Auto.class, new Filter<Auto>() {
             @Override
             public boolean accept(final Auto t) {
-                return  t.getPatente().contains(description);  
+                return  t.getPatente().contains(description) && t.getActivo();  
             }
         });
     }

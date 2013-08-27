@@ -26,7 +26,7 @@ import dom.marca.MarcaServicio;
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY)
 @javax.jdo.annotations.Queries({
-@javax.jdo.annotations.Query(name="listado_autos", language="JDQL",value="SELECT FROM dom.autos.Autos WHERE ownedBy == :ownedBy")})
+@javax.jdo.annotations.Query(name="listado_autos", language="JDQL",value="SELECT * FROM dom.autos.Autos WHERE activo== :true ")})
 @javax.jdo.annotations.Version(strategy=VersionStrategy.VERSION_NUMBER, column="VERSION")
 
 @ObjectType("AUTO")

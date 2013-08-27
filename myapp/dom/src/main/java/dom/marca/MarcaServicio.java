@@ -18,7 +18,7 @@ import dom.autos.Auto;
 
 
 
-@Named("Utilidades")
+@Named("Marca")
 public class MarcaServicio extends AbstractFactoryAndRepository {
 
 	//{{ Marcas
